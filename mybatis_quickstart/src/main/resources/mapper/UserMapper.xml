@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userMapper">
+    <!--namespace: 命名空间：与id属性共同构成唯一标识
+        resultType:返回结果类型（自动完成映射封装），要封装的实体的全路径
+    -->
+    <select id="findAll" resultType="usEr">
+        select * from user
+    </select>
+
+    <!--新增用户-->
+    <!--#{}:mybatis中的占位符，等同于jdbc中的？-->
+    <!--parameterType:指定接收到的参数类型，给占位符指定,并在#{}中指定对应的哪个实体类的属性,{}中的名称要和User中的属性一致-->
+    <insert id="saveUser" parameterType="com.lavdru.domain.User">
+        insert into user(username,birthday,sex,address) values(#{username},#{birthday},#{sex},#{address})
+    </insert>
+    <!--更新用户-->
+    <update id="updateUser" parameterType="com.lavdru.domain.User">
+        update user set username = #{username},birthday = #{birthday},sex = #{sex},address = #{address} where id = #{id}
+    </update>
+    <!--删除用户 当参数类型为基本数据类型或String，个数为1个时，#{}中的值写什么都无所谓-->
+    <!--parameterType可以简写，如java.lang.Integer可以简写为int,String类型可以简写为string,mybatis起的别名，s是小写的-->
+    <update id="deleteUser" parameterType="int">
+        delete from user where id = #{abc}
+    </update>
+
+</mapper>
